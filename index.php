@@ -80,31 +80,34 @@ if ($parking_filter && $vote_filter) {
 </head>
 
 <body>
-    <form action="index.php" method="GET">
-        <div class="parking">
-            <input class="form-check-input" type="checkbox" name="parking_filter" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-                Filtra per parcheggio
-            </label>
+    <form action="index.php" method="GET" class="w-50 m-3 border border-dark">
+        <h4 class="m-2">Filtra: </h4>
+        <div class="d-flex">
+            <div class="parking m-3">
+                <input class="form-check-input" type="checkbox" name="parking_filter" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Filtra per parcheggio
+                </label>
+            </div>
+            <div class="vote m-3">
+                <input type="number" id="quantity" name="vote_filter" min="1" max="5">
+                <label class="form-check-label" for="quantity">
+                    Filtra per voto
+                </label>
+            </div>
+            <button class="m-3 px-2 rounded bg-dark text-light fw-semibold">Invia</button>
         </div>
-        <div class="vote">
-            <input type="number" id="quantity" name="vote_filter" min="1" max="5">
-            <label class="form-check-label" for="quantity">
-                Filtra per voto
-            </label>
-        </div>
-        <button>Invia</button>
     </form>
 
-    <table class="table m-3">
-        <thead>
+    <table class="table w-75 m-3">
+        <thead class="table-dark">
             <tr>
                 <?php foreach ($hotels[0] as $key => $hotel) : ?>
                     <th scope="col"><?php echo $key ?></th>
                 <?php endforeach; ?>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             <?php foreach ($filtered_hotels as $hotel) : ?>
                 <tr>
                     <th scope="row"><?php echo $hotel['name'] ?></th>
