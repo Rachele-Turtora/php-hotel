@@ -1,5 +1,6 @@
 <?php
 
+// Variables
 $hotels = [
 
     [
@@ -41,17 +42,31 @@ $hotels = [
 
 $filtered_hotels = [];
 $parking_filter = $_GET['parking_filter'];
+$vote_filter = $_GET['vote_filter'];
 
-if ($parking_filter) {
+
+// Filters
+if ($parking_filter && $vote_filter) {
+    foreach ($hotels as $hotel) {
+        if ($hotel['parking'] == true && $hotel['vote'] >= $vote_filter) {
+            array_push($filtered_hotels, $hotel);
+        }
+    }
+} elseif ($parking_filter) {
     foreach ($hotels as $hotel) {
         if ($hotel['parking'] == true) {
+            array_push($filtered_hotels, $hotel);
+        }
+    }
+} elseif ($vote_filter) {
+    foreach ($hotels as $hotel) {
+        if ($hotel['vote'] >= $vote_filter) {
             array_push($filtered_hotels, $hotel);
         }
     }
 } else {
     $filtered_hotels = $hotels;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -66,10 +81,18 @@ if ($parking_filter) {
 
 <body>
     <form action="index.php" method="GET">
-        <input class="form-check-input" type="checkbox" name="parking_filter" id="flexCheckDefault">
-        <label class="form-check-label" for="flexCheckDefault">
-            Filtra per parcheggio
-        </label>
+        <div class="parking">
+            <input class="form-check-input" type="checkbox" name="parking_filter" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Filtra per parcheggio
+            </label>
+        </div>
+        <div class="vote">
+            <input type="number" id="quantity" name="vote_filter" min="1" max="5">
+            <label class="form-check-label" for="quantity">
+                Filtra per voto
+            </label>
+        </div>
         <button>Invia</button>
     </form>
 
