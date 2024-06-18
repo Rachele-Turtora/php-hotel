@@ -38,3 +38,29 @@ $hotels = [
         'distance_to_center' => 50
     ]
 ];
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels</title>
+</head>
+
+<body>
+    <h1>Hotels</h1>
+    <?php
+    foreach ($hotels as $hotel) {
+        echo "<br>";
+        foreach ($hotel as $key => $element) {
+            echo "$key - $element";
+            echo "<br>";
+        }
+    }
+    ?>
+</body>
+
+</html>
