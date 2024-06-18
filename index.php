@@ -39,6 +39,19 @@ $hotels = [
     ]
 ];
 
+$filtered_hotels = [];
+$parking_filter = $_GET['parking_filter'];
+
+if ($parking_filter) {
+    foreach ($hotels as $hotel) {
+        if ($hotel['parking'] == true) {
+            array_push($filtered_hotels, $hotel);
+        }
+    }
+} else {
+    $filtered_hotels = $hotels;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +65,15 @@ $hotels = [
 </head>
 
 <body>
-    <table class="table">
+    <form action="index.php" method="GET">
+        <input class="form-check-input" type="checkbox" name="parking_filter" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+            Filtra per parcheggio
+        </label>
+        <button>Invia</button>
+    </form>
+
+    <table class="table m-3">
         <thead>
             <tr>
                 <?php foreach ($hotels[0] as $key => $hotel) : ?>
@@ -61,7 +82,7 @@ $hotels = [
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($hotels as $hotel) : ?>
+            <?php foreach ($filtered_hotels as $hotel) : ?>
                 <tr>
                     <th scope="row"><?php echo $hotel['name'] ?></th>
                     <?php foreach (array_slice($hotel, 1) as $key => $element) : ?>
